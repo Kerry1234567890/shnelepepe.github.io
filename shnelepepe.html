@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Workshop - Мастерская Автомобильного Детейлинга</title>
+    <meta name="description" content="Профессиональный детейлинг для вашего автомобиля. Velocity Workshop: забота о каждой детали, возвращаем первозданный блеск.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E63946; /* Яркий красный */
+            --secondary-color: #3A86FF; /* Синий */
+            --accent-color: #FFBE0B; /* Желтый */
+            --text-color: #1D3557; /* Темно-синий */
+            --light-text: #666;
+            --background-light: #F8F9FA; /* Светлый фон */
+            --background-dark: #E2E8F0; /* Более темный акцент */
+            --section-bg: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --box-shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 5px var(--box-shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-link {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        #hero {
+            background: linear-gradient(rgba(29, 53, 87, 0.8), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1552415840-b001c30d8d74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center center/cover no-repeat;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 3.8em;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 15px 40px;
+            text-decoration: none;
+            font-size: 1.15em;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 4px 8px var(--box-shadow);
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px var(--box-shadow);
+        }
+
+        section {
+            padding: 80px 0;
+            background-color: var(--section-bg);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(even) {
+             background-color: var(--background-dark);
+        }
+
+        h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        .intro-text {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 60px auto;
+            font-size: 1.15em;
+            color: var(--light-text);
+        }
+
+        .services-grid, .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 35px;
+        }
+
+        .service-card, .gallery-item {
+            background-color: var(--card-bg);
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover, .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px var(--box-shadow);
+        }
+
+        .service-icon {
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            color: var(--secondary-color);
+            transition: color 0.3s ease;
+        }
+        .service-card:hover .service-icon {
+            color: var(--primary-color);
+        }
+
+        .service-card h3 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+
+        #contacts {
+            background-color: var(--background-dark);
+            text-align: center;
+            padding-bottom: 100px; /* Дополнительный отступ снизу */
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            color: var(--light-text);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .contact-info p {
+            margin: 15px 25px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+        .contact-info p::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            filter: invert(30%) sepia(100%) saturate(700%) hue-rotate(180deg); /* Синий цвет */
+        }
+        .contact-info p:nth-of-type fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 3.5 3.14 7.33 7 11.05C14.86 16.33 12 12.5 12 9zm0 11.5c-2.31 0-4-1.79-4-4s1.69-4 4-4 4 1.79 4 4-1.69 4-4 4z"/><circle cx="12" cy="9.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 15.5c-.67 0-1.21.54-1.21 1.21v.77c0 .32-.26.57-.58.57h-9.05c-.32 0-.58-.25-.58-.57v-.77c0-.67-.54-1.21-1.21-1.21s-1.21.54-1.21 1.21v.77c0 .32-.26.57-.58.57H3.21c-.32 0-.58-.25-.58-.57v-.77c0-.67-.54-1.21-1.21-1.21s-1.21.54-1.21 1.21v6.53c0 .32.26.57.58.57h17.58c.32 0 .58-.25.58-.57V16.71c0-.67-.54-1.21-1.21-1.21zM20 9.71c0 .32-.26.57-.58.57H4.41c-.32 0-.58-.25-.58-.57V3.21c0-.32.26-.57.58-.57h14.81c.32 xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4H2v16h20V4zm-2 14H4V6h16v12z"/><path d="M4 8.7a.96.96 0 0 0-.7-.7 1 1 0 0 0-.9.7v5.6c0 .3.2.7.9.7h.08c.7 0 .7-.7.7-.9V8.7zM10 10h4v2h-4zM6 10h2v2H6zm8 3h4v2h-4zm-4 1.5h4v2h-4zm-1.08 1.5h2v2h-2z"/></svg>'); }
+        .contact-info p:nth-of-type(4)::beforepath d="M12 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3zm0-5.9c-1.52 0-2.76 1.24-2.76 2.76s1.24 2.76 2.76 2.76 2.76-1.24 2.76-2.76-1.24-2.76-2.76-2.76z"/><path d="M20 6h-1V3.5c0-1.38-1.12-2.5-2.5-2.5H5.5C4.12 1 3 2.12 3 3.5V6H2c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-1 13H3V8h16v11z"/></svg>') }
+
+
+        .contact-info a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .map-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px var(--box-shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        footer {
+            background-color: var(--text-color);
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none; /* Скрыть навигацию, заменить на бургер-меню */
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .hero-content p {
+                font-size: 1.15em;
+            }
+            h2 {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px 0;
+            }
+            .logo {
+                font-size: 1.9em;
+            }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+            .contact-info p {
+                margin: 10px 0;
+                width: 100%;
+                justify-content: center;
+            }
+            .contact-info p::before {
+                margin-right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.4em;
+            }
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1.05em;
+            }
+            section {
+                padding: 60px 0;
+            }
+            h2 {
+                font-size: 2.2em;
+                margin-bottom: 30px;
+            }
+            .service-card, .gallery-item {
+                padding: 25px;
+            }
+            .service-icon {
+                font-size: 3em;
+            }
+            .service-card h3 {
+                font-size: 1.5em;
+            }
+             footer {
+                padding: 30px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="container">
+            <a href="#hero" class="logo">Velocity Workshop</a>
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link">О нас</a></li>
+                <li><a href="#services" class="nav-link">Услуги</a></li>
+                <li><a href="#gallery" class="nav-link">Галерея</a></li>
+                <li><a href="#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Velocity Workshop: Сделаем из твоей шахи Бэху в "М" комплекте</h1>
+                <p>Возвращаем блеск и совершенство каждой детали. Профессиональная забота о вашем транспорте.</p>
+                <a href="#services" class="cta-button">Наши услуги</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>Наш подход к совершенству</h2>
+                <p class="intro-text">В Velocity Workshop мы не просто моем машины. Мы создаем шедевры, применяя передовые технологии и материалы для безупречного результата. Каждый автомобиль для нас — это уникальный проект, требующий индивидуального внимания и мастерства. Наша страсть — это ваш идеальный автомобиль.</p>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2>Наши услуги</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Полный детейлинг</h3>
+                        <p>Комплексная очистка, полировка и защита кузова, салона и подкапотного пространства.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Предпродажная подготовка</h3>
+                        <p>Максимальное увеличение привлекательности автомобиля для успешной продажи.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Керамическое покрытие</h3>
+                        <p>Надежная защита лакокрасочного покрытия от сколов, царапин и УФ-излучения.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Удаление царапин и потертостей</h3>
+                        <p>Профессиональная полировка для восстановления идеального состояния лака.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Химчистка салона</h3>
+                        <p>Глубокая очистка всех поверхностей салона, удаление пятен и запахов.</p>
+                    </div>
+                     <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Детейлинг фар и дисков</h3>
+                        <p>Восстановление прозрачности фар и безупречного вида колесных дисков.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="container">
+                <h2>Галерея работ</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1581013689910-a89938217978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Автомобиль после детейлинга">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600609815190-0401e8069e54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Блестящий автомобиль">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1552132795-9593724c7358?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Детейлинг салона">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1493246507139-91e6579b7f43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Полировка автомобиля">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1503376962678-c52073a78470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Современный автомобиль">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1504197019507-5032556c3d06?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Детали автомобиля">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts">
+            <div class="container">
+                <h2>Свяжитесь с нами</h2>
+                <div class="contact-info">
+                    <p><strong>Адрес:</strong> г. Рязань йоу, 62 братуха</p>
+                    <p><strong>Телефон:</strong> <a href="tel: 8-800-555-35-35">8-800-555-35-35</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:info@velocityworkshop.ru">info@velocityworkshop.ru</a></p>
+                    <p><strong>Часы работы:</strong> Пн-Сб с 9:00 до 19:00</p>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3AA0b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2&source=constructor" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Velocity Workshop. Все права защищены.</p>
+        <p>Мы заботимся о каждом километре вашего пути.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            const nav = document.querySelector('nav');
+            const navHeight = nav.offsetHeight;
+
+            function setActiveNavLink() {
+                let currentSectionId = '';
+                const scrollPosition = window.scrollY + navHeight + 50;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+
+                    if (targetSection) {
+                        const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - navHeight - 30; 
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+
+                        setTimeout(() => {
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }, 800);
+                    }
+                });
+            });
+
+            const observerOptions = {
+                root: null, 
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            setActiveNavLink();
+            window.addEventListener('scroll', setActiveNavLink);
+        });
+    </script>
+</body>
+</html>
